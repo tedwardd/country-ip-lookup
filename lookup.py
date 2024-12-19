@@ -11,9 +11,6 @@ import io
 import sys
 import argparse
 
-# Set a default value for config file of "config.ini" in the current working directory
-CONFIG_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "config.ini")
-
 def env_to_conf(config: configparser.ConfigParser, vars: list) -> configparser.ConfigParser:
     # Take in a configparser and list of envronment variable suffixes to
     # lookup and add to the configparser. Return configparser
@@ -74,7 +71,7 @@ class IPList():
 
                 iso_code = rc.get('iso_code')
                 try:
-                    countries[iso_code].append(i[0].exploded)
+                    countries[iso_code].append(i[0])
                 except KeyError:
                     countries[iso_code] = [i[0].exploded]
 
@@ -89,7 +86,7 @@ def main():
     # Parse args
     parser = argparse.ArgumentParser(prog="lookup")
     parser.add_argument("-c", "--country", type=str, help="Country to find IPs for", required=True)
-    parser.add_argument("--config", dest="config_file", type=str, help="Config file path", required=False, default=None)
+    parser.add_argument("--config", dest="config_file", type=str, help="Config file path", required=False, default=os.path.join(os.path.dirname(os.path.abspath(__file__)), "config.ini"))
     parser.add_argument("-d", "--db", dest="db_cache", type=str, help="GeoIP database path", required=False, default=None)
     args = parser.parse_args()
     
