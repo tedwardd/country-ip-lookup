@@ -71,7 +71,7 @@ class IPList():
 
                 iso_code = rc.get('iso_code')
                 try:
-                    countries[iso_code].append(i[0])
+                    countries[iso_code].append(i[0].exploded)
                 except KeyError:
                     countries[iso_code] = [i[0].exploded]
 
@@ -94,13 +94,10 @@ def main():
     config = configparser.ConfigParser()
     
     required_opts: list = ["permalink", "user", "key"]
-    # if config file was not given as runtime arg, use defaul value
-    if args.config_file is None:
-        config_file = CONFIG_FILE
     
     # if the config file exists and is a file, read it
-    if os.path.isfile(config_file):
-        config.read(config_file)
+    if os.path.isfile(args.config_file):
+        config.read(args.config_file)
     
     # pass the required_opts to env_to_conf() to override config values with env vars
     config = env_to_conf(config, required_opts)
@@ -111,7 +108,7 @@ def main():
         try:
             config.defaults()[opt]
         except KeyError as e:
-            print(f"required value: `{opt}` is missing from {config_file} and is not defined as an environment variable", file=sys.stdout)
+            print(f"required value: `{opt}` is missing from {args.config_file} and is not defined as an environment variable", file=sys.stdout)
             raise e
     
     ip_list = IPList(config.defaults().get('permalink'), config.defaults().get('user'), config.defaults().get('key'), db_cache=args.db_cache)
