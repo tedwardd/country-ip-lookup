@@ -19,9 +19,9 @@ At a minimum, you will need a free tier MaxMind account ID and API key
 2. Add your Account ID and API key to the corresponding `user` and `key` fields
 in `config.ini`
 3. (optional) alternatively, you can set these to environment variables:
-  1. `permalink` = LOOKUP_PERMALINK
-  2. `user` = LOOKUP_USER
-  3. `key` = LOOKUP_KEY
+  3.1. `permalink` = LOOKUP_PERMALINK
+  3.2. `user` = LOOKUP_USER
+  3.3. `key` = LOOKUP_KEY
 4. Install all requirements with `pip install -r requirements.txt`
 
 NOTE: Free tier MaxMind accounts have a limit to how many times they can
