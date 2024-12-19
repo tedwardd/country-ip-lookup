@@ -1,0 +1,4 @@
+[DEFAULT]
+database_permalink = https://download.maxmind.com/geoip/databases/GeoLite2-Country/download?suffix=tar.gz
+user = <user_id>
+key = <api_key>
